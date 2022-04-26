@@ -130,6 +130,8 @@ public class Dashboard extends JFrame {
 //        return hasRegistredUsers;
     }
 
+
+
     public static void main(String[] args) {
         Dashboard myForm = new Dashboard();
     }
