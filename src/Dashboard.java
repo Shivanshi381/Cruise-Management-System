@@ -62,6 +62,7 @@ public class Dashboard extends JFrame {
                             "Successful Registration",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
+                UserDashboard myForm = new UserDashboard();
 
             }
         });
@@ -76,6 +77,7 @@ public class Dashboard extends JFrame {
                             "Successful Authentication",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
+                UserDashboard myForm = new UserDashboard();
             }
         });
     }
