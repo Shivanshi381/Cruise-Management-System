@@ -62,7 +62,7 @@ public class Dashboard extends JFrame {
                             "Successful Registration",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
-                UserDashboard myForm = new UserDashboard();
+                UserDashboard myForm = new UserDashboard(user.name);
 
             }
         });
@@ -77,7 +77,7 @@ public class Dashboard extends JFrame {
                             "Successful Authentication",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
-                UserDashboard myForm = new UserDashboard();
+                UserDashboard myForm = new UserDashboard(user.name);
             }
         });
     }
@@ -135,6 +135,8 @@ public class Dashboard extends JFrame {
 
 
     public static void main(String[] args) {
+
         Dashboard myForm = new Dashboard();
+
     }
 }

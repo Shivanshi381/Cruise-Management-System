@@ -13,7 +13,12 @@ public class UserDashboard extends JFrame{
     private JButton deleteBookingButton;
     private JLabel chlabel;
 
-        public UserDashboard() {
+    public UserDashboard()
+    {
+
+    }
+
+        public UserDashboard( String uname) {
             setTitle("User Dashboard");
             setContentPane(udb);
             setMinimumSize(new Dimension(500, 429));
@@ -22,6 +27,7 @@ public class UserDashboard extends JFrame{
             setVisible(true);
             /*boolean hasRegistredUsers = */
             connectToDatabase();
+            chlabel.setText("Logged in:" + uname);
 ////        if (hasRegistredUsers) {
 //            //show Login form
 //            Login loginForm = new Login(this);
@@ -75,6 +81,7 @@ public class UserDashboard extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     UpdateBooking ubk = new UpdateBooking(null);
+
                     Booking booking = ubk.booking;
                     if(booking!=null)
                     {
@@ -167,6 +174,7 @@ public class UserDashboard extends JFrame{
 
 
     public static void main(String[] args) {
-        UserDashboard myForm = new UserDashboard();
+            User user = new User();
+        UserDashboard myForm = new UserDashboard(user.name);
     }
     }
