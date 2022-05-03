@@ -63,7 +63,7 @@ public class DeleteBooking extends JDialog{
         }
         else{
             JOptionPane.showMessageDialog(this,
-                    "Failed to register new user",
+                    "Failed to Delete Booking",
                     "Try again",
                     JOptionPane.ERROR_MESSAGE);
         }
@@ -82,7 +82,6 @@ public class DeleteBooking extends JDialog{
         final String PASSWORD = "root1234";
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            Statement stmt = conn.createStatement();
             String sql ="  delete from booking where name=? ";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1,username);
@@ -91,7 +90,6 @@ public class DeleteBooking extends JDialog{
                 booking = new Booking();
                 booking.name = username;
             }
-            stmt.close();
             conn.close();
 
         }
@@ -110,7 +108,6 @@ public class DeleteBooking extends JDialog{
 
         if(booking!=null)
         {
-//            System.out.println("Successful Booking of tickets"+ booking.name);
             JOptionPane.showMessageDialog(dbk,
                     "Booking of " + booking.name + " deleted",
                     "Deletion Successful",

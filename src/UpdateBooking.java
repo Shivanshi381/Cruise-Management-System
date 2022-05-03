@@ -18,6 +18,7 @@ public class UpdateBooking extends JDialog {
 
     public UpdateBooking(JFrame parent)
     {
+        //creates a model-less dialog with specified frame as the owner if null then hidden frame is the owner.
         super(parent);
         setTitle("Create a new user");
         setContentPane(update);
@@ -26,7 +27,10 @@ public class UpdateBooking extends JDialog {
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-
+        // actionListner is an inbuilt java interface which is notified whenever a button is clicked.
+        // java.awt.event package
+        // steps: 1. implement ActionListner 2. register componenet with the listner 3. override the actionPerformed method
+        // here we have used the anonymous class method to implement this
 
         updateDetailsButton.addActionListener(new ActionListener() {
             @Override
@@ -36,6 +40,8 @@ public class UpdateBooking extends JDialog {
 
             }
         });
+
+
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
@@ -56,20 +62,19 @@ public class UpdateBooking extends JDialog {
         int noofguests= Integer.parseInt(guests);
         float cost = noofguests * 700;
         if(crname.isEmpty() || guests.isEmpty()|| depart.isEmpty() ){
-            JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(UpdateBooking.this,
                     "Please Enter all Fields",
                     "try again",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-//            Booking booking = null;
         booking= updateBookingToDatabase(username,crname, guests, depart, cost);
         if(booking != null)
         {
-            dispose();
+            dispose();// to release all the native screen resources
         }
         else{
-            JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(UpdateBooking.this,
                     "Failed to register new user",
                     "Try again",
                     JOptionPane.ERROR_MESSAGE);
@@ -90,7 +95,7 @@ public class UpdateBooking extends JDialog {
         final String PASSWORD = "root1234";
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            Statement stmt = conn.createStatement();
+            //prepared statement is used because we want to use input parameters in runtime
             String sql ="  UPDATE booking set crname=?, noofppl=?, dateofdeparture=?, cost=? where name=? ";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1,crname);
@@ -99,6 +104,8 @@ public class UpdateBooking extends JDialog {
             preparedStatement.setFloat(4,cost);
             preparedStatement.setString(5,username);
 
+
+            //executeUpdate returns 0 for NULL Sql statements
             int addedRows = preparedStatement.executeUpdate();
             if(addedRows >0){
                 booking = new Booking();
@@ -108,7 +115,6 @@ public class UpdateBooking extends JDialog {
                 booking.noofppl= guests;
                 booking.cost = cost ;
             }
-            stmt.close();
             conn.close();
 
         }
@@ -125,7 +131,6 @@ public class UpdateBooking extends JDialog {
         Booking booking = ubk.booking;
         if(booking!=null)
         {
-//            System.out.println("Successful Booking of tickets"+ booking.name);
             JOptionPane.showMessageDialog(ubk,
                     "Booked "+booking.noofppl+" tickets for cruise "+ booking.crname +" Pay Rs." + booking.cost,
                     "Update Successful",

@@ -60,12 +60,10 @@ public class Login extends JDialog {
 
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM users WHERE name=? AND pass=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
-
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next())
             {
@@ -76,19 +74,17 @@ public class Login extends JDialog {
                 user.password = resultSet.getString("pass");
             }
 
-            stmt.close();
             conn.close();
 
         }
         catch (Exception e)
         {
-//            e.printStackTrace();
             System.err.println("Error occured"+ e.getMessage());
         }
         return user;
     }
 
-    public void loginform()
+    public static void main( String[] args)
     {
         Login login = new Login(null);
         User user = login.user;

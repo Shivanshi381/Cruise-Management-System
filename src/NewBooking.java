@@ -84,7 +84,6 @@ public class NewBooking extends JDialog {
         final String PASSWORD = "root1234";
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            Statement stmt = conn.createStatement();
             String sql ="INSERT INTO booking (name, crname, noofppl, dateofdeparture, cost)"+ "VALUES (?,?,?,?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1,username);
@@ -102,7 +101,6 @@ public class NewBooking extends JDialog {
                 booking.noofppl= guests;
                 booking.cost = cost ;
             }
-            stmt.close();
             conn.close();
 
         }
